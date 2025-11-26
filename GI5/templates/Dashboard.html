@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard IoT</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+
+<h1>Mini Dashboard IoT</h1>
+
+<div class="cards-container">
+
+    <!-- Carte Température -->
+    <div class="card">
+        <h2>Température</h2>
+        <p class="value" id="temp-value">-- °C</p>
+        <p class="time" id="temp-time">--</p>
+        <button onclick="location.href='/graph_temp/'">Voir graphe température</button>
+    </div>
+
+    <!-- Carte Humidité -->
+    <div class="card">
+        <h2>Humidité</h2>
+        <p class="value" id="hum-value">-- %</p>
+        <p class="time" id="hum-time">--</p>
+        <button onclick="location.href='/graph_hum/'">Voir graphe humidité</button>
+    </div>
+
+</div>
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
