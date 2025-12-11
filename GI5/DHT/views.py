@@ -6,7 +6,6 @@ from django.utils import timezone
 from .models import Dht11
 
 def dashboard(request):
-    # Rend juste la page; les données sont chargées via JS
     return render(request, "dashboard.html")
 
 def graph_temp(request):
@@ -36,3 +35,8 @@ def latest_json(request):
         "minutes_since_last": elapsed_minutes,
         "timestamp": last.dt.isoformat()
     })
+
+
+def incidents(request):
+    # Page d'incidents (affichage front, les données viennent de /api/ via JS/HTML)
+    return render(request, "incidents.html")

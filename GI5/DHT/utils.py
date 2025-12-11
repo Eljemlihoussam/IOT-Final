@@ -14,13 +14,24 @@ def send_telegram(text: str) -> bool:
 
 
 def send_call_alert(temp):
+    # Si les identifiants ne sont pas configurés, on sort pour éviter un crash.
     account_sid = ''
     auth_token = ''
-    client = Client(account_sid, auth_token)
+    to_number = ''
+    from_number = ''
+    if not account_sid or not auth_token or not to_number or not from_number:
+        print("Twilio non configuré: appel ignoré.")
+        return False
 
-    call = client.calls.create(
-        twiml=f'<Response><Say>Attention, la température est de {temp} degrés, seuil dépassé !</Say></Response>',
-        to='+',  # Numéro à appeler
-        from_=''  # Numéro Twilio
-    )
-    print(call.sid)
+    try:
+        client = Client(account_sid, auth_token)
+        call = client.calls.create(
+            twiml=f'<Response><Say>Attention, la température est de {temp} degrés, seuil dépassé !</Say></Response>',
+            to=to_number,
+            from_=from_number
+        )
+        print(call.sid)
+        return True
+    except Exception as exc:
+        print(f"Erreur Twilio: {exc}")
+        return False

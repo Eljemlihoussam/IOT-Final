@@ -3,31 +3,50 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard IoT</title>
+    <title>Dashboard Température & Humidité</title>
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
 <body>
 
-<h1>Mini Dashboard IoT</h1>
+<h1>Dashboard Température & Humidité (DHT11)</h1>
+
+<p class="nav-links">
+    <a href="{% url 'incidents' %}">Voir la page d'archives des incidents</a>
+</p>
 
 <div class="cards-container">
-
-    <!-- Carte Température -->
     <div class="card">
-        <h2>Température</h2>
-        <p class="value" id="temp-value">-- °C</p>
-        <p class="time" id="temp-time">--</p>
+        <div class="card-title">Température</div>
+        <div class="value" id="temp-value">-- °C</div>
+        <div class="time" id="temp-time">--</div>
         <button onclick="location.href='/graph_temp/'">Voir graphe température</button>
     </div>
 
-    <!-- Carte Humidité -->
     <div class="card">
-        <h2>Humidité</h2>
-        <p class="value" id="hum-value">-- %</p>
-        <p class="time" id="hum-time">--</p>
+        <div class="card-title">Humidité</div>
+        <div class="value" id="hum-value">-- %</div>
+        <div class="time" id="hum-time">--</div>
         <button onclick="location.href='/graph_hum/'">Voir graphe humidité</button>
     </div>
 
+    <div class="card">
+        <div class="card-title">Incidents</div>
+        <div id="incident-status" class="value small">--</div>
+        <div class="time" id="incident-detail">Aucun incident</div>
+        <button onclick="location.href='/incidents/'">Voir les incidents</button>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Tester l'API (POST)</div>
+        <form id="manual-form">
+            <label>Température (°C)</label>
+            <input type="number" step="0.1" id="manual-temp" required>
+            <label>Humidité (%)</label>
+            <input type="number" step="0.1" id="manual-hum" required>
+            <button type="submit">Envoyer vers /api/post/</button>
+        </form>
+        <div id="manual-result" class="time"></div>
+    </div>
 </div>
 
 <script src="{% static 'js/dashboard.js' %}"></script>

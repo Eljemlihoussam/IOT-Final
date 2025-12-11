@@ -64,7 +64,7 @@ class Dhtviews(generics.CreateAPIView):
                     subject="⚠️ Alerte Température élevée",
                     message=f"La température a atteint {temp:.1f} °C à {instance.dt}.",
                     from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=["@gmail.com"],
+                    recipient_list=["eljemli.houssameddine.24@ump.ac.ma"],
                     fail_silently=True,
                 )
             except Exception as e:
@@ -75,4 +75,7 @@ class Dhtviews(generics.CreateAPIView):
             send_telegram(alert_msg)
 
             # 3) APPEL TÉLÉPHONIQUE (TWILIO)
-            send_call_alert(alert_msg)
+            try:
+                send_call_alert(alert_msg)
+            except Exception as exc:
+                print(f"Twilio non configuré ou erreur d'appel: {exc}")
